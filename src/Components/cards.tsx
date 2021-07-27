@@ -1,36 +1,29 @@
-import React from 'react';
-import { Card, Row , Col} from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Card, Row, Col } from 'antd';
+
 import Food from '../food.json';
 function Cards() {
-  return (
-    <>
-    
-    <Row gutter={16}>
-     
-   <div className="Card-wrapper"> 
-      {
-        (Food || []).map((item, idx) => {
-            return(
-              <Col className="gutter-row" span={6}>
 
-            
-              <Card hoverable
-              style={{ width: 240 }} key={idx}>
-                <p>{item.name}</p>
-                <p>{item.description}</p>
-                <p>{item.price}</p>
-                <p>{item.rating}</p>
-              </Card>
-              
-      </Col>
-              
-            )
+  return (
+    
+    <div className="site-card-wrapper">
+      {
+        Food.map(( item) => {
+          <Row gutter={16}>
+          <Col span={8}>
+            <Card title="Card title" bordered={false}>
+             <h3>Food Name: {item.name}</h3>
+             <p>Desc: {item.description}</p>
+             <p>Price: {item.price}</p>
+             <p>Ratings: {item.rating}</p>
+            </Card>
+          </Col>
+        </Row>
         })
       }
-   </div>
-   </Row>
-   </>
-  );
+    </div>
+  )
+
 }
 
 export default Cards;
