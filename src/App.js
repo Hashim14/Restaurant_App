@@ -1,10 +1,10 @@
 import React from "react"; 
 import "./App.css";
 import NavArea from "./Components/navArea";
-import Card from "./Components/card";
+import Cards from "./Components/cards";
 
 
-const App = () => <div className="App"><NavArea /><Card/></div>;
+const App = () => <div className="App"><NavArea /><Cards/></div>;
 
 export default App;
  
