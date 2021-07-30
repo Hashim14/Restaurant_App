@@ -1,31 +1,31 @@
 [
     {
-        "name": "idly",
-        "description": "two idly",
+        "name": "Idly",
+        "description": "Two Idly",
         "price": 10,
         "rating": 5
     },
     {
-        "name": "dosa",
-        "description": "one dosa",
+        "name": "Dosa",
+        "description": "One dosa",
         "price": 15,
         "rating": 4
     },
     {
-        "name": "poori",
-        "description": "three poori",
+        "name": "Poori",
+        "description": "Three Poori",
         "price": 30,
         "rating": 3
     },
     {
-        "name": "ideyapam",
-        "description": "one plate ",
+        "name": "Ideyapam",
+        "description": "One Plate ",
         "price": 40,
         "rating": 4
     },
     {
-        "name": "chpathi",
-        "description": "1 plate ",
+        "name": "Chapathi",
+        "description": "One Plate ",
         "price": 40,
         "rating": 2
     }
