@@ -1,30 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Row, Col } from "antd";
 import Food from "../food.json";
 
-const Cards = ({ priceOrder }: { priceOrder: boolean }) => {
-  const [sortedList, setSortedList] = React.useState(Food);
+const Cards = ({
+  priceOrder,
+  search,
+}: {
+  priceOrder: boolean;
+  search: string;
+}) => {
+  // const [sortedList, setSortedList] = React.useState(Food);
+
+  const [foodList, setFoodList] = useState<
+    { name: string; description: string; price: number; rating: number }[]
+  >([]);
+
+  React.useEffect(() => {
+    const forSearch = Food.filter((item) => {
+      console.log("name");
+      return item?.name?.toLowerCase().includes(search?.toLowerCase());
+    });
+    console.log(forSearch, "search test");
+    setFoodList(forSearch);
+  }, [search]);
+
   React.useEffect(() => {
     console.log("sort test");
-    const sorted = Food.sort((a, b) => {
-      const isSorted = priceOrder ? 1 : -1;
-      return isSorted * a.price - b.price;
+    const result = Food.sort((a, b) => {
+      console.log("sort");
+      return -1 * b.price - a.price;
     });
-    setSortedList(sortedList);
-    // console.log(sorted,"sorted");
+    console.log(result);
+    setFoodList(result);
   }, [priceOrder]);
 
   return (
     <>
       <div className="site-card-wrapper">
         <Row gutter={16}>
-          {sortedList.map((item) => {
+          {foodList.map((item) => {
             return (
               <Col span={8} className="m1">
                 <Card title={item.name} bordered={true}>
                   <h3>Food Name: {item.name}</h3>
-                  <p>Desc: {item.description}</p>
-                  <p>Price: {item.price}</p>
+                  <p>Description: {item.description}</p>
+                  <p>Price: Rs.{item.price}</p>
                   <p>Ratings: {item.rating}</p>
                 </Card>
               </Col>
