@@ -50,10 +50,9 @@ const NavArea = ({
   return (
     <>
       <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">Home</Menu.Item>
+        <Header className="header" style={{background: "#138585"}}>
+          <Menu theme="dark" style={{background: "#138585"}} mode="horizontal" defaultSelectedKeys={["1"]}>
+            <Menu.Item key="1" disabled>Home</Menu.Item>
             <Menu.Item>
               <Dropdown overlay={menu} trigger={["click"]}>
                 <span className="ant-dropdown-link ">Filter</span>
@@ -61,11 +60,12 @@ const NavArea = ({
             </Menu.Item>
 
             <Menu.Item key="3" onClick={showModal}>
-              Add Restaurant
+              Add Food
             </Menu.Item>
+
             <Input
               style={{ width: "200px" }}
-              placeholder="Search Food,Restaurant"
+              placeholder="Search Food"
               onChange={handleChange}
             />
             <Modal

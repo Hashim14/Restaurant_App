@@ -40,8 +40,21 @@ const Cards = ({
         <Row gutter={16}>
           {foodList.map((item) => {
             return (
-              <Col span={8} className="m1">
-                <Card title={item.name} bordered={true}>
+              <Col span={8} style={{ padding: "25px" }}>
+                <Card 
+                  bordered={false}
+                  title={item.name}
+                  hoverable
+                  headStyle={{
+                    backgroundColor: "#58d1c9",
+                    borderStartStartRadius: "25px"
+                    
+                  }}
+                  bodyStyle={{
+                    backgroundColor: "#84e2d8",
+                    borderEndEndRadius: "25px",
+                  }}
+                >
                   <h3>Food Name: {item.name}</h3>
                   <p>Description: {item.description}</p>
                   <p>Price: Rs.{item.price}</p>
