@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import { Card, Row, Col } from "antd";
 import Food from "../food.json";
 
-const Cards = ({
-  priceOrder,
+const Cards = ({ priceOrder,
   search,
-}: {
-  priceOrder: boolean;
-  search: string;
-}) => {
-  // const [sortedList, setSortedList] = React.useState(Food);
+  nameOrder
+}:
+  {
+    priceOrder: boolean;
+    nameOrder: boolean;
+    search: string
+  }) => {
 
   const [foodList, setFoodList] = useState<
-    { name: string; description: string; price: number; rating: number }[]
-  >([]);
+    { name: string, description: string, price: number, rating: number }[]>(Food);
+
 
   React.useEffect(() => {
-    const forSearch = Food.filter((item) => {
+    const forSearch =  Food.filter((item) => {
       console.log("name");
       return item?.name?.toLowerCase().includes(search?.toLowerCase());
     });
@@ -34,21 +35,50 @@ const Cards = ({
     setFoodList(result);
   }, [priceOrder]);
 
+
+
+  React.useEffect(() => {
+    console.log('sort name', foodList);
+    const sortNames = foodList.sort((a: any, b: any) => {
+      
+     if(a.name > b.name && nameOrder){
+       return 1
+     } else {
+       return -1
+     }
+      
+    });
+    console.log(sortNames);
+    setFoodList(sortNames);
+  }, [nameOrder]) 
+
+
+
+  // const[searchResults, setSearchResults]=React.useState([])
+
+  // React.useEffect(() => {
+  // const result = !search ? Food
+  //  : Food.filter((item) => item.name.toLowerCase().includes(search));
+  //  setSearchResults(result);
+
+  // }, [searchResults]);
   return (
-    <>
-      <div className="site-card-wrapper">
-        <Row gutter={16}>
-          {foodList.map((item) => {
-            return (
+    <div className="site-card-wrapper">
+      <Row gutter={16}>
+        {foodList.map((item) => {
+          return (
+            <>
               <Col span={8} style={{ padding: "25px" }}>
-                <Card 
+
+
+                <Card
                   bordered={false}
                   title={item.name}
                   hoverable
                   headStyle={{
                     backgroundColor: "#58d1c9",
                     borderStartStartRadius: "25px"
-                    
+
                   }}
                   bodyStyle={{
                     backgroundColor: "#84e2d8",
@@ -61,12 +91,20 @@ const Cards = ({
                   <p>Ratings: {item.rating}</p>
                 </Card>
               </Col>
-            );
-          })}
-        </Row>
-      </div>
-    </>
-  );
-};
+
+
+
+
+
+            </>
+          )
+        }
+        )}
+      </Row>
+    </div>
+  )
+
+
+}
 
 export default Cards;

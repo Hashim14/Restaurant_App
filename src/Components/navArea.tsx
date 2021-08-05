@@ -7,12 +7,14 @@ import Modal from "antd/lib/modal/Modal";
 const NavArea = ({
   priceToggle,
   handleChange,
+  nameToggle
 }: {
   priceToggle: any;
+  nameToggle:any;
   handleChange: () => void;
 }) => {
   const [toggle, setToggle] = React.useState(true);
-  // const [sortNameToggle, setSortNameToggle] = React.useState(true);
+   const [sortNameToggle, setSortNameToggle] = React.useState(true);
 
   const [visible, setVisible] = React.useState(false);
 
@@ -31,17 +33,17 @@ const NavArea = ({
     setToggle(!toggle);
     priceToggle(toggle);
   };
-  // const sortName = () => {
-  //   setSortNameToggle(!sortNameToggle);
-  //   nameToggle(sortNameToggle);
-  // };
+  const sortName = () => {
+    setSortNameToggle(!sortNameToggle);
+    nameToggle(!sortNameToggle);
+  };
 
   const menu = (
     <Menu>
       <Menu.Item key="1" onClick={sortPrice}>
         Price: Top to Low
       </Menu.Item>
-      <Menu.Item key="2" disabled>
+      <Menu.Item key="2" onClick={sortName} >
         Name
       </Menu.Item>
     </Menu>
