@@ -1,33 +1,26 @@
 import React from "react";
 import { Dropdown, Input, Layout, Menu } from "antd";
 import { Header } from "antd/lib/layout/layout";
-import Modal from "antd/lib/modal/Modal";
+import {
+  UpOutlined,
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+  DownOutlined,
+} from "@ant-design/icons";
+
 // import DropdownButton from "antd/lib/dropdown/dropdown-button";
 
 const NavArea = ({
   priceToggle,
   handleChange,
-  nameToggle
+  nameToggle,
 }: {
   priceToggle: any;
-  nameToggle:any;
+  nameToggle: any;
   handleChange: () => void;
 }) => {
   const [toggle, setToggle] = React.useState(true);
-   const [sortNameToggle, setSortNameToggle] = React.useState(true);
-
-  const [visible, setVisible] = React.useState(false);
-
-  const showModal = () => {
-    setVisible(true);
-  };
-  const closeModal = () => {
-    setVisible(false);
-  };
-
-  const onOkay = () => {
-    setVisible(false);
-  };
+  const [sortNameToggle, setSortNameToggle] = React.useState(true);
 
   const sortPrice = () => {
     setToggle(!toggle);
@@ -41,9 +34,15 @@ const NavArea = ({
   const menu = (
     <Menu>
       <Menu.Item key="1" onClick={sortPrice}>
-        Price: Top to Low
+        {toggle === false ? <UpOutlined /> : <DownOutlined />} Price:{" "}
+        <span>{toggle === false ? "Low to Top" : "Top to Low"}</span>
       </Menu.Item>
-      <Menu.Item key="2" onClick={sortName} >
+      <Menu.Item key="2" onClick={sortName}>
+        {sortNameToggle === true ? (
+          <SortAscendingOutlined />
+        ) : (
+          <SortDescendingOutlined />
+        )}{" "}
         Name
       </Menu.Item>
     </Menu>
@@ -52,17 +51,20 @@ const NavArea = ({
   return (
     <>
       <Layout>
-        <Header className="header" style={{background: "#138585"}}>
-          <Menu theme="dark" style={{background: "#138585"}} mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1" disabled>Home</Menu.Item>
+        <Header className="header" style={{ background: "#138585" }}>
+          <Menu
+            theme="dark"
+            style={{ background: "#138585" }}
+            mode="horizontal"
+            defaultSelectedKeys={["1"]}
+          >
+            <Menu.Item key="1" disabled>
+              Home
+            </Menu.Item>
             <Menu.Item>
               <Dropdown overlay={menu} trigger={["click"]}>
                 <span className="ant-dropdown-link ">Filter</span>
               </Dropdown>
-            </Menu.Item>
-
-            <Menu.Item key="3" onClick={showModal}>
-              Add Food
             </Menu.Item>
 
             <Input
@@ -70,14 +72,6 @@ const NavArea = ({
               placeholder="Search Food"
               onChange={handleChange}
             />
-            <Modal
-              title="Create Restaurant"
-              visible={visible}
-              onCancel={closeModal}
-              onOk={onOkay}
-            >
-              hi
-            </Modal>
           </Menu>
         </Header>
       </Layout>

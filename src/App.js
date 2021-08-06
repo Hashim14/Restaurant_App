@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import NavArea from "./Components/navArea";
-import Cards from "./Components/cards";
+import Cards from "./Components/itemList";
 
 const App = () => {
   const [priceOrder, setPriceOrder] = React.useState(false);

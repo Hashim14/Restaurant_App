@@ -28,6 +28,17 @@
         "description": "One Plate ",
         "price": 40,
         "rating": 2
+    },
+    {
+        "name": "Bread Omelette",
+        "description": "One Plate ",
+        "price": 30,
+        "rating": 5
+    },
+    {
+        "name": "Shawarma",
+        "description": "One Plate ",
+        "price": 50,
+        "rating": 4
     }
 ]
-
