@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, Input, Layout, Menu } from "antd";
+import { Dropdown, Input, Layout, Menu, Affix } from "antd";
 import { Header } from "antd/lib/layout/layout";
 import {
   UpOutlined,
@@ -51,7 +51,7 @@ const NavArea = ({
   return (
     <>
       <Layout>
-        <Header className="header" style={{ background: "#138585" }}>
+        <Header className="header" style={{ background: "#138585", position: 'fixed' , zIndex: 1, width: '100%' }}>
           <Menu
             theme="dark"
             style={{ background: "#138585" }}

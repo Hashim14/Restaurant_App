@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Food from "../food.json";
 import ItemCard from "./itemCard";
-import { Button, Form, Input, InputNumber, Row } from "antd";
+import { Button, Form, Input, InputNumber, Row, Col } from "antd";
 import Modal from "antd/lib/modal/Modal";
 
 export type modalType = {
@@ -86,7 +86,10 @@ const Cards = ({
 
   return (
     <div className="site-card-wrapper">
+       <Col offset={20} style={{paddingTop:"20px", zIndex: 1, position: 'fixed'}}>
       <Button onClick={showModal}>Add Food</Button>
+      </Col>
+      
       <Modal
         title="Create Restaurant"
         visible={visible}
