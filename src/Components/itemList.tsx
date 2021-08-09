@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Food from "../food.json";
 import ItemCard from "./itemCard";
-import { Button, Checkbox, Form, Input, InputNumber, Row } from "antd";
+import { Button, Form, Input, InputNumber, Row } from "antd";
 import Modal from "antd/lib/modal/Modal";
 
 export type modalType = {
@@ -20,42 +20,41 @@ const Cards = ({
   nameOrder: boolean;
   search: string;
 }) => {
-  const [foodList, setFoodList] =
-    useState<
-      { name: string; description: string; price: number; rating: number }[]
-    >(Food);
-
+  const [foodList, setFoodList] = useState(Food);
+  // const [emptyForm, setEmptyForm] = React.useState("");
   const [visible, setVisible] = React.useState(false);
-  const clonedList = [...Food];
+  const clonedList = [...foodList];
   const showModal = () => {
     setVisible(true);
   };
   const closeModal = () => {
     setVisible(false);
   };
-
-  const onOkay = () => {
-    setVisible(false);
-  };
-
   const onFinish = (values: any) => {
     //console.log("Success:", values);
     clonedList.push(values);
     console.log(clonedList, "updatted list");
     setFoodList(clonedList);
+    // setFoodList("");
+    setVisible(false);
   };
+  // const onOkay = () => {
+
+  // };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
   React.useEffect(() => {
-    const forSearch = Food.filter((item) => {
+    const forSearch = foodList.filter((item) => {
       console.log("name");
       return item?.name?.toLowerCase().includes(search?.toLowerCase());
     });
     console.log(forSearch, "search test");
-    setFoodList(forSearch);
+    {
+      search.length > 1 ? setFoodList(forSearch) : setFoodList(Food);
+    }
   }, [search]);
 
   React.useEffect(() => {
@@ -92,7 +91,7 @@ const Cards = ({
         title="Create Restaurant"
         visible={visible}
         onCancel={closeModal}
-        onOk={onOkay}
+        onOk={onFinish}
       >
         <Form
           name="basic"

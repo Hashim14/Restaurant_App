@@ -1,5 +1,4 @@
-import { Row, Col, Card } from "antd";
-import { modalType } from "./itemList";
+import { Col, Card } from "antd";
 
 const ItemCard = ({ item }: { item: any }) => {
   return (
