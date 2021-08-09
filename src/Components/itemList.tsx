@@ -86,10 +86,13 @@ const Cards = ({
 
   return (
     <div className="site-card-wrapper">
-       <Col offset={20} style={{paddingTop:"20px", zIndex: 1, position: 'fixed'}}>
-      <Button onClick={showModal}>Add Food</Button>
+      <Col
+        offset={20}
+        style={{ paddingTop: "20px", zIndex: 1, position: "fixed" }}
+      >
+        <Button onClick={showModal}>Add Food</Button>
       </Col>
-      
+
       <Modal
         title="Create Restaurant"
         visible={visible}
@@ -149,6 +152,7 @@ const Cards = ({
         className="site-card-wrapper"
         style={{
           padding: "8px",
+          paddingTop: "70px",
         }}
       >
         <Row gutter={16}>

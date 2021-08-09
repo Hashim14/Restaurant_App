@@ -51,7 +51,7 @@ const NavArea = ({
   return (
     <>
       <Layout>
-        <Header className="header" style={{ background: "#138585", position: 'fixed' , zIndex: 1, width: '100%' }}>
+        <Header className="header" style={{ background: "#138585", position: 'fixed' , zIndex: 1, width: '100%', top:"0px" }}>
           <Menu
             theme="dark"
             style={{ background: "#138585" }}
