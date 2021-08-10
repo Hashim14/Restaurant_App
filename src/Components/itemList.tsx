@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import Food from "../food.json";
 import ItemCard from "./itemCard";
-import { Button, Form, Input, InputNumber, Row, Col } from "antd";
-import Modal from "antd/lib/modal/Modal";
+import { Button, Form, Input, InputNumber, Row, Col, Modal } from "antd";
 
-export type modalType = {
-  name: string;
-  description: string;
-  price: number;
-  rating: number;
-};
+// export type modalType = {
+//   name: string;
+//   description: string;
+//   price: number;
+//   rating: number;
+// };
 
 const Cards = ({
   priceOrder,
@@ -21,37 +20,28 @@ const Cards = ({
   search: string;
 }) => {
   const [foodList, setFoodList] = useState(Food);
-  // const [emptyForm, setEmptyForm] = React.useState("");
-  const [visible, setVisible] = React.useState(false);
   const clonedList = [...foodList];
-  const showModal = () => {
-    setVisible(true);
-  };
-  const closeModal = () => {
-    setVisible(false);
-  };
-  const onFinish = (values: any) => {
-    //console.log("Success:", values);
+
+  const [visible, setVisible] = React.useState(false);
+  const [form] = Form.useForm();
+
+  const onCreate = (values: any) => {
+    // console.log("Success:", values);
     clonedList.push(values);
-    console.log(clonedList, "updatted list");
+    // console.log(clonedList, "updatted list");
     setFoodList(clonedList);
-    // setFoodList("");
     setVisible(false);
   };
-  // const onOkay = () => {
 
-  // };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+  const onCancel = () => {
+    setVisible(false);
   };
 
   React.useEffect(() => {
     const forSearch = foodList.filter((item) => {
-      console.log("name");
+      // console.log("name");
       return item?.name?.toLowerCase().includes(search?.toLowerCase());
     });
-    console.log(forSearch, "search test");
     {
       search.length > 1 ? setFoodList(forSearch) : setFoodList(Food);
     }
@@ -60,19 +50,19 @@ const Cards = ({
   React.useEffect(() => {
     // console.log("sort test");
     const result = foodList.sort((a: any, b: any) => {
-      console.log("sort");
+      // console.log("sort");
       if (a.price > b.price && priceOrder) {
         return 1;
       } else {
         return -1;
       }
     });
-    console.log(result);
+    // console.log(result);
     setFoodList(result);
   }, [priceOrder]);
 
   React.useEffect(() => {
-    console.log("sort name", foodList);
+    // console.log("sort name", foodList);
     const sortNames = foodList.sort((a: any, b: any) => {
       if (a.name > b.name && nameOrder) {
         return 1;
@@ -80,7 +70,7 @@ const Cards = ({
         return -1;
       }
     });
-    console.log(sortNames);
+    // console.log(sortNames);
     setFoodList(sortNames);
   }, [nameOrder]);
 
@@ -88,24 +78,61 @@ const Cards = ({
     <div className="site-card-wrapper">
       <Col
         offset={20}
-        style={{ paddingTop: "20px", zIndex: 1, position: "fixed" }}
+        style={{ paddingTop: "15px", zIndex: 1, position: "fixed" }}
+    
       >
-        <Button onClick={showModal}>Add Food</Button>
+        <Button
+          type="primary"
+          onClick={() => {
+            setVisible(true);
+          }}
+          style={{ backgroundColor: "#0B6767", border: "0px" }}
+        >
+          Add New
+        </Button>
       </Col>
 
+      <div
+        className="site-card-wrapper"
+        style={{
+          padding: "8px",
+          paddingTop: "70px",
+        }}
+      >
+        <Row gutter={16}>
+          {foodList.map((item: any) => {
+            return <ItemCard item={item} />;
+          })}
+        </Row>
+      </div>
+
       <Modal
-        title="Create Restaurant"
         visible={visible}
-        onCancel={closeModal}
-        onOk={onFinish}
+        title="Cuisine Information"
+        okText="Submit"
+        cancelText="Cancel"
+        onCancel={onCancel}
+        style={{paddingLeft: "50px", paddingRight:"50px"}}
+        onOk={() => {
+          form
+            .validateFields()
+            .then((values: any) => {
+              form.resetFields();
+              onCreate(values);
+              console.log(values, "validated");
+            })
+            .catch((info) => {
+              console.log("Validate Failed:", info);
+            });
+        }}
       >
         <Form
-          name="basic"
+          form={form}
+          name="submitForm"
+          // layout="vertical"
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          initialValues={{ remember: false }}
         >
           <Form.Item
             label="Food Name"
@@ -121,7 +148,7 @@ const Cards = ({
               { required: true, message: "Please input the Food Description!" },
             ]}
           >
-            <Input />
+            <Input maxLength={50}/>
           </Form.Item>
           <Form.Item
             label="Price"
@@ -139,28 +166,8 @@ const Cards = ({
           >
             <InputNumber min={1} max={5} defaultValue={3} />
           </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
         </Form>
       </Modal>
-
-      <div
-        className="site-card-wrapper"
-        style={{
-          padding: "8px",
-          paddingTop: "70px",
-        }}
-      >
-        <Row gutter={16}>
-          {foodList.map((item: any) => {
-            return <ItemCard item={item} />;
-          })}
-        </Row>
-      </div>
     </div>
   );
 };

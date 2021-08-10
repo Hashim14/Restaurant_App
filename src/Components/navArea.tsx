@@ -51,7 +51,16 @@ const NavArea = ({
   return (
     <>
       <Layout>
-        <Header className="header" style={{ background: "#138585", position: 'fixed' , zIndex: 1, width: '100%', top:"0px" }}>
+        <Header
+          className="header"
+          style={{
+            background: "#138585",
+            position: "fixed",
+            zIndex: 1,
+            width: "100%",
+            top: "0px",
+          }}
+        >
           <Menu
             theme="dark"
             style={{ background: "#138585" }}
@@ -62,8 +71,13 @@ const NavArea = ({
               Home
             </Menu.Item>
             <Menu.Item>
-              <Dropdown overlay={menu} trigger={["click"]}>
-                <span className="ant-dropdown-link ">Filter</span>
+              <Dropdown
+                overlay={menu}
+                trigger={["click"]}
+                placement="bottomCenter"
+                
+              >
+                <span className="ant-dropdown-link">Sort</span>
               </Dropdown>
             </Menu.Item>
 

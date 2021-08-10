@@ -1,4 +1,4 @@
-import { Col, Card } from "antd";
+import { Col, Card, Rate } from "antd";
 
 const ItemCard = ({ item }: { item: any }) => {
   return (
@@ -26,7 +26,9 @@ const ItemCard = ({ item }: { item: any }) => {
           <h3>Food Name: {item.name}</h3>
           <p>Description: {item.description}</p>
           <p>Price: Rs.{item.price}</p>
-          <p>Ratings: {item.rating}</p>
+          <p>
+            <Rate value={item.rating} disabled/>
+          </p>
         </Card>
       </Col>
       {/* })} */}
