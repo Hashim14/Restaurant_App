@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Food from "../food.json";
 import ItemCard from "./itemCard";
 import { Button, Form, Input, InputNumber, Row, Col, Modal } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { getFood } from "../Redux Saga/action/foods";
 
 // export type modalType = {
 //   name: string;
@@ -10,15 +12,20 @@ import { Button, Form, Input, InputNumber, Row, Col, Modal } from "antd";
 //   rating: number;
 // };
 
-const Cards = ({
+const ItemList = ({
   priceOrder,
   search,
   nameOrder,
+  addToCart,
 }: {
   priceOrder: boolean;
   nameOrder: boolean;
   search: string;
+  addToCart: (item:any) => void;
 }) => {
+  const dispatch = useDispatch();
+  // const forSearch = useSelector((state) => state.food.foods);
+
   const [foodList, setFoodList] = useState(Food);
   const clonedList = [...foodList];
 
@@ -45,6 +52,7 @@ const Cards = ({
     {
       search.length > 1 ? setFoodList(forSearch) : setFoodList(Food);
     }
+    dispatch(getFood(setFoodList));
   }, [search]);
 
   React.useEffect(() => {
@@ -79,7 +87,6 @@ const Cards = ({
       <Col
         offset={20}
         style={{ paddingTop: "15px", zIndex: 1, position: "fixed" }}
-    
       >
         <Button
           type="primary"
@@ -101,7 +108,7 @@ const Cards = ({
       >
         <Row gutter={16}>
           {foodList.map((item: any) => {
-            return <ItemCard item={item} />;
+            return <ItemCard item={item} addToCart={addToCart} />;
           })}
         </Row>
       </div>
@@ -112,7 +119,7 @@ const Cards = ({
         okText="Submit"
         cancelText="Cancel"
         onCancel={onCancel}
-        style={{paddingLeft: "50px", paddingRight:"50px"}}
+        style={{ paddingLeft: "50px", paddingRight: "50px" }}
         onOk={() => {
           form
             .validateFields()
@@ -148,7 +155,7 @@ const Cards = ({
               { required: true, message: "Please input the Food Description!" },
             ]}
           >
-            <Input maxLength={50}/>
+            <Input maxLength={50} />
           </Form.Item>
           <Form.Item
             label="Price"
@@ -172,4 +179,4 @@ const Cards = ({
   );
 };
 
-export default Cards;
+export default ItemList;

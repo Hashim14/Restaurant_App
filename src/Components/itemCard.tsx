@@ -1,6 +1,6 @@
-import { Col, Card, Rate } from "antd";
+import { Col, Card, Rate, Button } from "antd";
 
-const ItemCard = ({ item }: { item: any }) => {
+const ItemCard = ({ item, addToCart }: { item: any; addToCart: any}) => {
   return (
     <div>
       {/* <Row gutter={16}> */}
@@ -27,9 +27,10 @@ const ItemCard = ({ item }: { item: any }) => {
           <p>Description: {item.description}</p>
           <p>Price: Rs.{item.price}</p>
           <p>
-            <Rate value={item.rating} disabled/>
+            <Rate value={item.rating} disabled />
           </p>
-        </Card>
+          <Button onClick={() => addToCart(item)}>Add to Cart</Button>
+        </Card> 
       </Col>
       {/* })} */}
       {/* </Row> */}
